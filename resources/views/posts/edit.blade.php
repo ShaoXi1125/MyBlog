@@ -1,24 +1,32 @@
 @extends('layout.app')
 
-@section('title','New Post')
+@section('title','Update Post')
 
 @section('content')
 
 <div class='container'>
-    <form action="{{route('posts.update',$post-id)}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('posts.update',$post->id)}}" method="POST" enctype="multipart/form-data">
 
         @csrf
         @method('PUT')
 
         <div class="form-group">
             <label for="title">Title</label><br>
-            <input type="text" name="title" id="title" class="form-control">
+            <input type="text" name="title" id="title" class="form-control" value='{{$post->title}}'>
         </div>
 
         <div class="form-group">
             <label for="content">Content</label><br>
-            <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
+            <textarea name="content" id="content" cols="30" rows="10" class="form-control">{{$post->content}}</textarea>
         </div>
+        @if($post->image)
+        @foreach($post->image as $images)
+           <figure class='card-img-top'>
+               <img src="{{asset($images->image)}}" alt="Post Image" style="width:20%;">
+               <label for="remove_image"><input type='checkbox' name='remove_image[]' value='{{$images->id}}'> Remove Image</label>
+           </figure>
+        @endforeach
+        @endif
         <!-- 图片上传字段的容器 -->
         <div class="form-group">
             <label for="image">Images</label><br>
@@ -36,7 +44,7 @@
         
 
         <div class='form-group'>
-            <button type="submit">New Post</button>
+            <button type="submit">Update Post</button>
         </div>
 
     </form>

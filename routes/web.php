@@ -16,3 +16,5 @@ Route::get('/delete/{id}',[PostController::class,'delete'])->name('posts.delete'
 Route::get('/post/new_post',[PostController::class,'new_post'])->name('new_post');
 
 Route::post('/post/store',[PostController::class,'store'])->name('create');
+
+Route::get('/viewer',[PostController::class,'viewer'])->name('show.index');
